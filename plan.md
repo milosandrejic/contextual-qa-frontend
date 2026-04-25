@@ -62,9 +62,9 @@ React + Vite + TypeScript SPA frontend for the [`contextual-qa-engine`](https://
 - [x] Configure `vite.config.ts` alias `@` → `/src`; mirror in `tsconfig.json` `paths`
 - [x] Add `.env.example` with `VITE_API_BASE_URL=http://localhost:8000`
 - [x] Add scripts: `dev`, `build`, `preview`, `lint`, `typecheck`, `test`
-- [ ] Create MUI theme (`src/theme/index.ts`) — palette from `frontend.md`, Inter + JetBrains Mono, 10–14px radii, soft shadow, primary glow
-- [ ] `main.tsx`: `ThemeProvider` + `CssBaseline` + `QueryClientProvider` + `<Toaster />` + `<App />`
-- [ ] ESLint passes on empty scaffold
+- [x] Create MUI theme (`src/theme/index.ts`) — palette from `frontend.md`, Inter + JetBrains Mono, 10–14px radii, soft shadow, primary glow
+- [x] `main.tsx`: `ThemeProvider` + `CssBaseline` + `QueryClientProvider` + `<Toaster />` + `<App />`
+- [x] ESLint passes on empty scaffold
 
 ### Phase 2 — API + state layer
 - [ ] `src/api/client.ts` — fetch wrapper, env base URL, JSON + multipart helpers, error normalization
