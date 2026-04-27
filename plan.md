@@ -43,7 +43,7 @@ React + Vite + TypeScript SPA frontend for the [`contextual-qa-engine`](https://
 - React + Vite + TypeScript
 - MUI (`@mui/material`, `@mui/icons-material`, `@emotion/react`, `@emotion/styled`)
 - TanStack Query — server state
-- Zustand + `persist` — UI state, `sessionId`, `defaultTopK`
+- React Context + `localStorage` — `sessionId`, `defaultTopK`, panel toggle (no global state lib)
 - `react-markdown` + `remark-gfm` — assistant rendering
 - `react-dropzone` — uploads
 - `sonner` — toasts
@@ -67,12 +67,11 @@ React + Vite + TypeScript SPA frontend for the [`contextual-qa-engine`](https://
 - [x] ESLint passes on empty scaffold
 
 ### Phase 2 — API + state layer
-- [ ] `src/api/client.ts` — fetch wrapper, env base URL, JSON + multipart helpers, error normalization
-- [ ] `src/api/documents.ts`, `src/api/sessions.ts`, `src/api/ask.ts`
-- [ ] `src/types/*.ts` — `Document`, `Message`, `Source`, `SessionHistory`, `AskResponse`
-- [ ] `src/store/ui-store.ts` — `panelOpen`, `expandedSourcesByMessageId`, `highlightedCitation`
-- [ ] `src/store/session-store.ts` — persisted `sessionId`, `defaultTopK`
-- [ ] Hooks: `use-documents`, `use-upload-document`, `use-delete-document`, `use-session-history` (404 → clear store), `use-ask` (lazy-create session, optimistic user msg, invalidate history)
+- [x] `src/api/client.ts` — fetch wrapper, env base URL, JSON + multipart helpers, error normalization
+- [x] `src/api/documents.ts`, `src/api/sessions.ts`, `src/api/ask.ts`
+- [x] `src/types/*.ts` — `Document`, `Message`, `Source`, `SessionHistory`, `AskResponse`
+- [x] `src/context/session-context.tsx` — `sessionId`, `defaultTopK`, persisted to `localStorage`
+- [ ] Hooks: `use-documents`, `use-upload-document`, `use-delete-document`, `use-session-history` (404 → clear context), `use-ask` (lazy-create session, optimistic user msg, invalidate history)
 
 ### Phase 3 — Layout shell
 - [ ] `src/components/layout/app-shell.tsx` — responsive two-column
@@ -128,7 +127,7 @@ React + Vite + TypeScript SPA frontend for the [`contextual-qa-engine`](https://
 - [.env.example](.env.example)
 - [src/theme/index.ts](src/theme/index.ts)
 - [src/api/client.ts](src/api/client.ts)
-- [src/store/session-store.ts](src/store/session-store.ts)
+- [src/context/session-context.tsx](src/context/session-context.tsx)
 - [src/components/layout/app-shell.tsx](src/components/layout/app-shell.tsx)
 - [src/components/layout/top-bar.tsx](src/components/layout/top-bar.tsx)
 - [src/components/layout/documents-panel.tsx](src/components/layout/documents-panel.tsx)

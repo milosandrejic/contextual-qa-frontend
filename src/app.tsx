@@ -13,6 +13,7 @@ import { ThemeProvider } from "@mui/material/styles";
 
 import { theme } from "@/theme";
 import { queryClient } from "@/lib/query-client";
+import { SessionProvider } from "@/context/session-context";
 
 export function App() {
   return (
@@ -20,15 +21,17 @@ export function App() {
       <CssBaseline />
 
       <QueryClientProvider client={queryClient}>
-        <main>
-          <h1>Contextual QA</h1>
-        </main>
+        <SessionProvider>
+          <main>
+            <h1>Contextual QA</h1>
+          </main>
 
-        <Toaster
-          position="top-right"
-          richColors
-          closeButton
-        />
+          <Toaster
+            position="top-right"
+            richColors
+            closeButton
+          />
+        </SessionProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );
