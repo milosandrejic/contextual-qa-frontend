@@ -71,7 +71,7 @@ React + Vite + TypeScript SPA frontend for the [`contextual-qa-engine`](https://
 - [x] `src/api/documents.ts`, `src/api/sessions.ts`, `src/api/ask.ts`
 - [x] `src/types/*.ts` — `Document`, `Message`, `Source`, `SessionHistory`, `AskResponse`
 - [x] `src/context/session-context.tsx` — `sessionId`, `defaultTopK`, persisted to `localStorage`
-- [ ] Hooks: `use-documents`, `use-upload-document`, `use-delete-document`, `use-session-history` (404 → clear context), `use-ask` (lazy-create session, optimistic user msg, invalidate history)
+- [x] Hooks: `use-documents`, `use-upload-document`, `use-delete-document`, `use-session-history` (404 → clear context), `use-ask` (lazy-create session, optimistic user msg, invalidate history)
 
 ### Phase 3 — Layout shell
 - [ ] `src/components/layout/app-shell.tsx` — responsive two-column
