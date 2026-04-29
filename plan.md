@@ -79,11 +79,11 @@ React + Vite + TypeScript SPA frontend for the [`contextual-qa-engine`](https://
 - [x] `src/components/layout/documents-panel.tsx` — sidebar (desktop) / `Drawer` (tablet) / full-screen `Dialog` (mobile)
 
 ### Phase 4 — Documents panel
-- [ ] `src/components/docs/dropzone.tsx` — idle / hover / uploading / error
-- [ ] `src/components/docs/upload-progress.tsx` — filename + spinner
-- [ ] `src/components/docs/document-card.tsx` — filename, size, pages, indexed-at, chunk count, view-details, delete with confirm
-- [ ] `src/components/docs/document-details-dialog.tsx` — read-only metadata view
-- [ ] Empty state copy
+- [x] `src/components/docs/dropzone.tsx` — idle / hover / uploading / error
+- [x] `src/components/docs/upload-progress.tsx` — filename + spinner
+- [x] `src/components/docs/document-card.tsx` — filename, size, pages, indexed-at, chunk count, view-details, delete with confirm
+- [x] `src/components/docs/document-details-dialog.tsx` — read-only metadata view
+- [x] Empty state copy
 
 ### Phase 5 — Chat view
 - [ ] `src/components/chat/message-list.tsx` — auto-scroll on new message unless user scrolled up
