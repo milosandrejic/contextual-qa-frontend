@@ -6,25 +6,22 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useUploadDocument } from "@/hooks/use-upload-document";
+interface DropzoneProps {
+  isUploading: boolean;
+  onFilesDropped: (files: File[]) => void;
+}
 
 const ACCEPT = {
   "application/pdf": [".pdf"],
   "text/plain": [".txt"],
 };
 
-export function Dropzone() {
-  const upload = useUploadDocument();
-
+export function Dropzone({ isUploading, onFilesDropped }: DropzoneProps) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: ACCEPT,
     multiple: true,
-    disabled: upload.isPending,
-    onDrop: (files) => {
-      for (const file of files) {
-        upload.mutate(file);
-      }
-    },
+    disabled: isUploading,
+    onDrop: onFilesDropped,
   });
 
   return (
@@ -38,10 +35,10 @@ export function Dropzone() {
         px: 2,
         py: 2.5,
         textAlign: "center",
-        cursor: upload.isPending ? "not-allowed" : "pointer",
+        cursor: isUploading ? "not-allowed" : "pointer",
         transition: "border-color 120ms, background-color 120ms",
         "&:hover": {
-          borderColor: upload.isPending ? "divider" : "primary.main",
+          borderColor: isUploading ? "divider" : "primary.main",
         },
       }}
     >

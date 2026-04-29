@@ -18,6 +18,12 @@ export function DocumentsPanel() {
 
   const uploadingFile = upload.isPending ? upload.variables : null;
 
+  const handleFilesDropped = (files: File[]) => {
+    for (const file of files) {
+      upload.mutate(file);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -35,7 +41,10 @@ export function DocumentsPanel() {
         Documents
       </Typography>
 
-      <Dropzone />
+      <Dropzone
+        isUploading={upload.isPending}
+        onFilesDropped={handleFilesDropped}
+      />
 
       {
         uploadingFile &&
