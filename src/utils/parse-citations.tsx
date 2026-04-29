@@ -4,28 +4,51 @@ import { Fragment } from "react";
 
 import { CitationBadge } from "@/components/chat/citation-badge";
 
-const CITATION_PATTERN = /(\[(\d+)\])/g;
+const CITATION_PATTERN = /\[(\d+)\]/g;
 
 interface ParseCitationsOptions {
   onCitationClick?: (citation: number) => void;
 }
 
 export function parseCitations(text: string, options?: ParseCitationsOptions): ReactNode[] {
-  const parts = text.split(CITATION_PATTERN);
+  const nodes: ReactNode[] = [];
+  let lastIndex = 0;
 
-  return parts.map((part, index) => {
-    if (/^\[\d+\]$/.test(part)) {
-      const citation = Number(part.slice(1, -1));
+  for (const match of text.matchAll(CITATION_PATTERN)) {
+    const fullMatch = match[0];
+    const citationValue = match[1];
+    const matchIndex = match.index ?? 0;
 
-      return (
-        <CitationBadge
-          key={`${citation}-${index}`}
-          citation={citation}
-          onClick={options?.onCitationClick}
-        />
+    if (matchIndex > lastIndex) {
+      nodes.push(
+        <Fragment key={`text-${lastIndex}`}>
+          {text.slice(lastIndex, matchIndex)}
+        </Fragment>,
       );
     }
 
-    return <Fragment key={`text-${index}`}>{part}</Fragment>;
-  });
+    nodes.push(
+      <CitationBadge
+        key={`${citationValue}-${matchIndex}`}
+        citation={Number(citationValue)}
+        onClick={options?.onCitationClick}
+      />,
+    );
+
+    lastIndex = matchIndex + fullMatch.length;
+  }
+
+  if (lastIndex < text.length) {
+    nodes.push(
+      <Fragment key={`text-${lastIndex}`}>
+        {text.slice(lastIndex)}
+      </Fragment>,
+    );
+  }
+
+  if (nodes.length === 0) {
+    return [<Fragment key="text-0">{text}</Fragment>];
+  }
+
+  return nodes;
 }

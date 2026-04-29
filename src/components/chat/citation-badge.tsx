@@ -17,27 +17,39 @@ export function CitationBadge({ citation, onClick }: CitationBadgeProps) {
     <Box
       component="button"
       type="button"
+      aria-label={`Open source ${citation}`}
       onClick={handleClick}
       sx={{
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        mx: 0.25,
-        minWidth: 20,
-        height: 20,
-        borderRadius: 1,
-        fontSize: 11,
-        fontWeight: 600,
+        verticalAlign: "super",
+        position: "relative",
+        top: -1,
+        mx: 0.125,
+        minWidth: 18,
+        height: 18,
+        borderRadius: 999,
+        fontSize: 10,
+        fontWeight: 700,
         fontFamily: "mono.fontFamily",
         color: "secondary.main",
-        bgcolor: "rgba(16,185,129,0.12)",
+        bgcolor: "rgba(16,185,129,0.1)",
         border: "1px solid",
-        borderColor: "rgba(16,185,129,0.28)",
-        px: 0.75,
+        borderColor: "rgba(16,185,129,0.22)",
+        px: 0.5,
         lineHeight: 1,
         cursor: "pointer",
+        transition: "background-color 120ms, border-color 120ms, transform 120ms",
         "&:hover": {
-          bgcolor: "rgba(16,185,129,0.18)",
+          bgcolor: "rgba(16,185,129,0.16)",
+          borderColor: "rgba(16,185,129,0.35)",
+          transform: "translateY(-1px)",
+        },
+        "&:focus-visible": {
+          outline: "2px solid",
+          outlineColor: "rgba(16,185,129,0.35)",
+          outlineOffset: 2,
         },
       }}
     >

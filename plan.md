@@ -86,17 +86,17 @@ React + Vite + TypeScript SPA frontend for the [`contextual-qa-engine`](https://
 - [x] Empty state copy
 
 ### Phase 5 — Chat view
-- [ ] `src/components/chat/message-list.tsx` — auto-scroll on new message unless user scrolled up
-- [ ] `src/components/chat/user-message.tsx`
-- [ ] `src/components/chat/assistant-message.tsx` — markdown render with citation override
-- [ ] `src/components/chat/citation-badge.tsx` — emerald rounded badge, mono font, click → expand sources + scroll + flash highlight
-- [ ] `src/components/chat/sources-accordion.tsx` — collapsed "Sources (n)" → list
-- [ ] `src/components/chat/source-chunk-card.tsx` — filename, page, **`Distance: 0.42`**, preview
-- [ ] `src/components/chat/message-footer.tsx` — `tokens • latency_ms ms`
-- [ ] `src/components/chat/typing-indicator.tsx` — 3 bouncing dots
-- [ ] `src/components/chat/chat-input.tsx` — auto-grow textarea (max 6 lines), send, Cmd/Ctrl+Enter, char count, `top_k` 2/3/5
-- [ ] `src/utils/parse-citations.tsx` — react-markdown text-node override, replaces `[n]` with `<CitationBadge />`
-- [ ] `src/utils/format-distance.ts`, `format-bytes.ts`, `format-relative-time.ts`
+- [x] `src/components/chat/message-list.tsx` — auto-scroll on new message unless user scrolled up
+- [x] `src/components/chat/user-message.tsx`
+- [x] `src/components/chat/assistant-message.tsx` — markdown render with citation override
+- [x] `src/components/chat/citation-badge.tsx` — emerald rounded badge, mono font, click → expand sources + scroll + flash highlight
+- [x] `src/components/chat/sources-accordion.tsx` — collapsed "Sources (n)" → list
+- [x] `src/components/chat/source-chunk-card.tsx` — filename, page, **`Distance: 0.42`**, preview
+- [x] `src/components/chat/message-footer.tsx` — `tokens • latency_ms ms`
+- [x] `src/components/chat/typing-indicator.tsx` — 3 bouncing dots
+- [x] `src/components/chat/chat-input.tsx` — auto-grow textarea (max 6 lines), send, Cmd/Ctrl+Enter, char count, `top_k` 2/3/5
+- [x] `src/utils/parse-citations.tsx` — react-markdown text-node override, replaces `[n]` with `<CitationBadge />`
+- [x] `src/utils/format-distance.ts`, `format-bytes.ts`, `format-relative-time.ts`
 
 ### Phase 6 — Empty / loading / error states
 - [ ] No-documents empty state — gradient illustration (CSS) + upload CTA

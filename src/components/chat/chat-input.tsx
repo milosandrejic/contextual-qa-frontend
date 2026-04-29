@@ -1,7 +1,7 @@
 import type { TopK } from "@/context/session-context";
 
 import { Send } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useRef, useMemo, useState, useEffect } from "react";
 
 import {
   Box,
@@ -21,6 +21,9 @@ interface ChatInputProps {
 }
 
 const MAX_LENGTH = 2_000;
+const MAX_VISIBLE_LINES = 4;
+const LINE_HEIGHT_PX = 24;
+const MAX_TEXTAREA_HEIGHT = MAX_VISIBLE_LINES * LINE_HEIGHT_PX;
 
 export function ChatInput({
   value,
@@ -31,8 +34,24 @@ export function ChatInput({
   onSubmit,
 }: ChatInputProps) {
   const [isFocused, setIsFocused] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const remaining = useMemo(() => MAX_LENGTH - value.length, [value.length]);
+
+  useEffect(() => {
+    if (!textareaRef.current) {
+      return;
+    }
+
+    const node = textareaRef.current;
+
+    node.style.height = "0px";
+
+    const nextHeight = Math.min(node.scrollHeight, MAX_TEXTAREA_HEIGHT);
+
+    node.style.height = `${nextHeight}px`;
+    node.style.overflowY = node.scrollHeight > MAX_TEXTAREA_HEIGHT ? "auto" : "hidden";
+  }, [value]);
 
   const handleSend = () => {
     const trimmed = value.trim();
@@ -60,6 +79,7 @@ export function ChatInput({
         >
           <Box
             component="textarea"
+            ref={textareaRef}
             value={value}
             onChange={(event) => onChange(event.target.value.slice(0, MAX_LENGTH))}
             onFocus={() => setIsFocused(true)}
@@ -88,9 +108,9 @@ export function ChatInput({
               font: "inherit",
               color: "text.primary",
               lineHeight: 1.5,
-              maxHeight: 156,
-              minHeight: 24,
-              overflowY: "auto",
+              maxHeight: MAX_TEXTAREA_HEIGHT,
+              minHeight: LINE_HEIGHT_PX,
+              overflowY: "hidden",
               mb: 1,
               "&::placeholder": {
                 color: "text.secondary",
