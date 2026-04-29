@@ -22,5 +22,6 @@ export interface Message {
   content: string;
   sources: Source[] | null;
   token_usage: TokenUsage | null;
+  latency_ms: number | null;
   created_at: string;
 }
