@@ -74,9 +74,9 @@ React + Vite + TypeScript SPA frontend for the [`contextual-qa-engine`](https://
 - [x] Hooks: `use-documents`, `use-upload-document`, `use-delete-document`, `use-session-history` (404 → clear context), `use-ask` (lazy-create session, optimistic user msg, invalidate history)
 
 ### Phase 3 — Layout shell
-- [ ] `src/components/layout/app-shell.tsx` — responsive two-column
-- [ ] `src/components/layout/top-bar.tsx` — title/logo (gradient text), New chat, panel toggle, settings icon
-- [ ] `src/components/layout/documents-panel.tsx` — sidebar (desktop) / `Drawer` (tablet) / full-screen `Dialog` (mobile)
+- [x] `src/components/layout/app-shell.tsx` — responsive two-column
+- [x] `src/components/layout/top-bar.tsx` — title/logo (gradient text), New chat, panel toggle, settings icon
+- [x] `src/components/layout/documents-panel.tsx` — sidebar (desktop) / `Drawer` (tablet) / full-screen `Dialog` (mobile)
 
 ### Phase 4 — Documents panel
 - [ ] `src/components/docs/dropzone.tsx` — idle / hover / uploading / error
