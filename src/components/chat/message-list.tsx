@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import { useRef, useMemo, useState, useEffect } from "react";
 
 import { Box } from "@mui/material";
@@ -13,6 +15,7 @@ interface MessageListProps {
   pendingQuestion: string | null;
   isThinking: boolean;
   latestLatencyMs: number | null;
+  errorContent?: ReactNode;
 }
 
 export function MessageList({
@@ -20,6 +23,7 @@ export function MessageList({
   pendingQuestion,
   isThinking,
   latestLatencyMs,
+  errorContent,
 }: MessageListProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [stickToBottom, setStickToBottom] = useState(true);
@@ -109,6 +113,10 @@ export function MessageList({
           <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
             <TypingIndicator />
           </Box>
+        }
+
+        {
+          !isThinking && errorContent
         }
 
       </Box>

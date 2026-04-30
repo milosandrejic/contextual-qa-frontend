@@ -1,8 +1,6 @@
-import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { ask } from "@/api/ask";
-import { ApiError } from "@/api/client";
 import { queryKeys } from "@/lib/query-keys";
 import { createSession } from "@/api/sessions";
 import { useSession } from "@/context/session-context";
@@ -37,11 +35,6 @@ export function useAsk() {
       if (id) {
         queryClient.invalidateQueries({ queryKey: queryKeys.sessionHistory(id) });
       }
-    },
-    onError: (error: unknown) => {
-      const message = error instanceof ApiError ? error.detail : "Failed to get an answer";
-
-      toast.error(message);
     },
   });
 }

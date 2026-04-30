@@ -11,7 +11,14 @@ export function useSessionHistory() {
 
   const query = useQuery({
     queryKey: sessionId ? queryKeys.sessionHistory(sessionId) : ["sessions", "none"],
-    queryFn: () => getSessionHistory(sessionId as string),
+    queryFn: async () => {
+      const [history] = await Promise.all([
+        getSessionHistory(sessionId as string),
+        new Promise((resolve) => setTimeout(resolve, 600)),
+      ]);
+
+      return history;
+    },
     enabled: Boolean(sessionId),
     retry: (count, error) => {
       if (error instanceof ApiError && error.status === 404) {

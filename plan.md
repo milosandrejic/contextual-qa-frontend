@@ -99,12 +99,12 @@ React + Vite + TypeScript SPA frontend for the [`contextual-qa-engine`](https://
 - [x] `src/utils/format-distance.ts`, `format-bytes.ts`, `format-relative-time.ts`
 
 ### Phase 6 — Empty / loading / error states
-- [ ] No-documents empty state — gradient illustration (CSS) + upload CTA
-- [ ] New-chat empty state — 3–4 generic suggested questions, click fills input
-- [ ] Skeletons while history hydrates
-- [ ] Failed upload toast with retry
-- [ ] Failed ask → error bubble with retry button
-- [ ] 409 duplicate filename → friendly toast
+- [x] No-documents empty state — gradient illustration (CSS) + upload CTA
+- [x] New-chat empty state — 3–4 generic suggested questions, click fills input
+- [x] Skeletons while history hydrates
+- [x] Failed upload toast with retry
+- [x] Failed ask → error bubble with retry button
+- [x] 409 duplicate filename → friendly toast
 
 ### Phase 7 — Settings + responsive + polish
 - [ ] `src/components/settings/settings-modal.tsx` — only default `top_k`

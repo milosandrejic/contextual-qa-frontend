@@ -1,3 +1,5 @@
+import { FileSearch } from "lucide-react";
+
 import {
   Box,
   Alert,
@@ -78,8 +80,36 @@ export function DocumentsPanel() {
 
         {
           !isLoading && !isError && documents && documents.length === 0 && !uploadingFile &&
-          <Box sx={{ textAlign: "center", color: "text.secondary", mt: 1 }}>
-            <Typography variant="body2">
+          <Box
+            sx={{
+              textAlign: "center",
+              color: "text.secondary",
+              mt: 2,
+              px: 2,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 0.5,
+            }}
+          >
+            <Box
+              sx={{
+                width: 56,
+                height: 56,
+                borderRadius: "50%",
+                mb: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+                background: "linear-gradient(135deg, #6366F1 0%, #10B981 100%)",
+                boxShadow: "0 8px 20px rgba(99,102,241,0.22)",
+              }}
+            >
+              <FileSearch size={22} />
+            </Box>
+
+            <Typography variant="body2" sx={{ color: "text.primary", fontWeight: 600 }}>
               No documents yet
             </Typography>
 
