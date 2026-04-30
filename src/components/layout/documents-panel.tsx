@@ -1,10 +1,12 @@
-import { FileSearch } from "lucide-react";
+import { X, FileSearch } from "lucide-react";
 
 import {
   Box,
   Alert,
+  Tooltip,
   Skeleton,
   Typography,
+  IconButton,
 } from "@mui/material";
 
 import { useDocuments } from "@/hooks/use-documents";
@@ -14,7 +16,11 @@ import { Dropzone } from "@/components/docs/dropzone";
 import { DocumentCard } from "@/components/docs/document-card";
 import { UploadProgress } from "@/components/docs/upload-progress";
 
-export function DocumentsPanel() {
+interface DocumentsPanelProps {
+  onClose?: () => void;
+}
+
+export function DocumentsPanel({ onClose }: DocumentsPanelProps) {
   const { data: documents, isLoading, isError, error } = useDocuments();
   const upload = useUploadDocument();
 
@@ -36,12 +42,34 @@ export function DocumentsPanel() {
         gap: 1.5,
       }}
     >
-      <Typography
-        variant="h6"
-        sx={{ fontWeight: 700, letterSpacing: "-0.01em" }}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 1,
+        }}
       >
-        Documents
-      </Typography>
+        <Typography
+          variant="h6"
+          sx={{ fontWeight: 700, letterSpacing: "-0.01em" }}
+        >
+          Documents
+        </Typography>
+
+        {
+          onClose &&
+          <Tooltip title="Close">
+            <IconButton
+              size="small"
+              onClick={onClose}
+              aria-label="Close documents panel"
+            >
+              <X size={16} />
+            </IconButton>
+          </Tooltip>
+        }
+      </Box>
 
       <Dropzone
         isUploading={upload.isPending}

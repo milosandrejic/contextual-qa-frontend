@@ -1,42 +1,35 @@
-import type { TopK } from "@/context/session-context";
-
-import { Send } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { useRef, useMemo, useState, useEffect } from "react";
 
 import {
   Box,
-  Button,
+  IconButton,
   Typography,
-  ToggleButton,
-  ToggleButtonGroup,
 } from "@mui/material";
 
 interface ChatInputProps {
   value: string;
-  topK: TopK;
   disabled: boolean;
   onChange: (value: string) => void;
-  onTopKChange: (topK: TopK) => void;
   onSubmit: (question: string) => void;
 }
 
 const MAX_LENGTH = 2_000;
-const MAX_VISIBLE_LINES = 4;
+const MAX_VISIBLE_LINES = 6;
 const LINE_HEIGHT_PX = 24;
 const MAX_TEXTAREA_HEIGHT = MAX_VISIBLE_LINES * LINE_HEIGHT_PX;
 
 export function ChatInput({
   value,
-  topK,
   disabled,
   onChange,
-  onTopKChange,
   onSubmit,
 }: ChatInputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const remaining = useMemo(() => MAX_LENGTH - value.length, [value.length]);
+  const showCount = remaining < 200;
 
   useEffect(() => {
     if (!textareaRef.current) {
@@ -50,17 +43,16 @@ export function ChatInput({
     const nextHeight = Math.min(node.scrollHeight, MAX_TEXTAREA_HEIGHT);
 
     node.style.height = `${nextHeight}px`;
-    node.style.overflowY = node.scrollHeight > MAX_TEXTAREA_HEIGHT ? "auto" : "hidden";
   }, [value]);
 
-  const handleSend = () => {
-    const trimmed = value.trim();
+  const canSend = !disabled && value.trim().length > 0;
 
-    if (!trimmed || disabled) {
+  const handleSend = () => {
+    if (!canSend) {
       return;
     }
 
-    onSubmit(trimmed);
+    onSubmit(value.trim());
   };
 
   return (
@@ -68,13 +60,18 @@ export function ChatInput({
       <Box sx={{ maxWidth: 900, mx: "auto" }}>
         <Box
           sx={{
+            display: "flex",
+            alignItems: "flex-end",
+            gap: 1,
             border: 1,
             borderColor: isFocused ? "primary.main" : "divider",
             bgcolor: "background.paper",
             borderRadius: 2,
-            px: 1.5,
-            py: 1.25,
-            transition: "border-color 120ms",
+            pl: 2.5,
+            pr: 2,
+            py: 1,
+            transition: "border-color 120ms, box-shadow 120ms",
+            boxShadow: isFocused ? "0 0 0 4px rgba(99,102,241,0.12)" : "none",
           }}
         >
           <Box
@@ -100,18 +97,23 @@ export function ChatInput({
             disabled={disabled}
             rows={1}
             sx={{
-              width: "100%",
+              flex: 1,
               resize: "none",
               border: 0,
               outline: "none",
               bgcolor: "transparent",
               font: "inherit",
+              fontSize: 14,
               color: "text.primary",
               lineHeight: 1.5,
-              maxHeight: MAX_TEXTAREA_HEIGHT,
-              minHeight: LINE_HEIGHT_PX,
-              overflowY: "hidden",
-              mb: 1,
+              maxHeight: `${MAX_TEXTAREA_HEIGHT}px`,
+              minHeight: `${LINE_HEIGHT_PX}px`,
+              overflowY: "auto",
+              scrollbarWidth: "none",
+              "&::-webkit-scrollbar": {
+                display: "none",
+              },
+              py: 1,
               "&::placeholder": {
                 color: "text.secondary",
                 opacity: 1,
@@ -123,23 +125,9 @@ export function ChatInput({
             }}
           />
 
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 1 }}>
-            <ToggleButtonGroup
-              size="small"
-              exclusive
-              value={topK}
-              onChange={(_, nextTopK: TopK | null) => {
-                if (nextTopK !== null) {
-                  onTopKChange(nextTopK);
-                }
-              }}
-            >
-              <ToggleButton value={2}>top_k 2</ToggleButton>
-              <ToggleButton value={3}>top_k 3</ToggleButton>
-              <ToggleButton value={5}>top_k 5</ToggleButton>
-            </ToggleButtonGroup>
-
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexShrink: 0, alignSelf: "flex-end", pb: 0.25 }}>
+            {
+              showCount &&
               <Typography
                 variant="caption"
                 sx={{
@@ -149,18 +137,29 @@ export function ChatInput({
               >
                 {value.length}/{MAX_LENGTH}
               </Typography>
+            }
 
-              <Button
-                type="button"
-                variant="contained"
-                color="primary"
-                onClick={handleSend}
-                disabled={disabled || value.trim().length === 0}
-                endIcon={<Send size={15} />}
-              >
-                Send
-              </Button>
-            </Box>
+            <IconButton
+              type="button"
+              onClick={handleSend}
+              disabled={!canSend}
+              aria-label="Send message"
+              sx={{
+                width: 32,
+                height: 32,
+                bgcolor: canSend ? "primary.main" : "action.disabledBackground",
+                color: canSend ? "#fff" : "text.disabled",
+                "&:hover": {
+                  bgcolor: canSend ? "primary.dark" : "action.disabledBackground",
+                },
+                "&.Mui-disabled": {
+                  bgcolor: "action.disabledBackground",
+                  color: "text.disabled",
+                },
+              }}
+            >
+              <ArrowUp size={16} />
+            </IconButton>
           </Box>
         </Box>
       </Box>

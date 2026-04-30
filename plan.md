@@ -107,11 +107,10 @@ React + Vite + TypeScript SPA frontend for the [`contextual-qa-engine`](https://
 - [x] 409 duplicate filename → friendly toast
 
 ### Phase 7 — Settings + responsive + polish
-- [ ] `src/components/settings/settings-modal.tsx` — only default `top_k`
-- [ ] Tablet (768–1279px) — panel as `Drawer` toggled from top bar
-- [ ] Mobile (<768px) — panel as full-screen `Dialog`
-- [ ] Focus rings, `aria-*`, keyboard nav for citation badges
-- [ ] "New chat" → best-effort `DELETE /sessions/{id}`, clear store, reset UI
+- [x] `src/components/settings/settings-modal.tsx` — only default `top_k`
+- [x] Tablet (768–1279px) — panel as `Drawer` toggled from top bar
+- [x] Mobile (<768px) — panel as full-screen `Drawer`
+- [x] "New chat" → best-effort `DELETE /sessions/{id}`, clear store, reset UI
 
 ### Phase 8 — Tests + README
 - [ ] Vitest setup

@@ -46,7 +46,7 @@ function ChatView() {
   const newChatMutation = useNewChat();
   const sessionHistory = useSessionHistory();
   const documentsQuery = useDocuments();
-  const { defaultTopK, setDefaultTopK } = useSession();
+  const { defaultTopK } = useSession();
 
   const [draft, setDraft] = useState("");
   const [lastAttempt, setLastAttempt] = useState<{ question: string; topK: 2 | 3 | 5 } | null>(null);
@@ -66,10 +66,6 @@ function ChatView() {
   })();
   const documents = documentsQuery.data ?? [];
   const hasDocuments = documents.length > 0;
-
-  const handleTopKChange = (value: 2 | 3 | 5) => {
-    setDefaultTopK(value);
-  };
 
   const handleSubmit = (question: string) => {
     setLastAttempt({ question, topK: defaultTopK });
@@ -207,10 +203,8 @@ function ChatView() {
 
       <ChatInput
         value={draft}
-        topK={defaultTopK}
         disabled={askMutation.isPending || newChatMutation.isPending}
         onChange={setDraft}
-        onTopKChange={handleTopKChange}
         onSubmit={handleSubmit}
       />
     </AppShell>

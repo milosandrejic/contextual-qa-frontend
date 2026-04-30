@@ -1,13 +1,19 @@
 import type { ReactNode } from "react";
 
+import { useState } from "react";
+
 import { useTheme } from "@mui/material/styles";
-import { Box, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Drawer,
+  useMediaQuery,
+} from "@mui/material";
 
 import { TopBar } from "@/components/layout/top-bar";
 import { DocumentsPanel } from "@/components/layout/documents-panel";
+import { SettingsModal } from "@/components/settings/settings-modal";
 
-const PANEL_WIDTH_DESKTOP = 320;
-const PANEL_WIDTH_TABLET = 280;
+const PANEL_WIDTH = 320;
 
 interface AppShellProps {
   children: ReactNode;
@@ -16,9 +22,19 @@ interface AppShellProps {
 
 export function AppShell({ children, onNewChat }: AppShellProps) {
   const theme = useTheme();
-  const isTabletUp = useMediaQuery(theme.breakpoints.up("md"));
+  const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const panelWidth = isTabletUp ? PANEL_WIDTH_DESKTOP : PANEL_WIDTH_TABLET;
+  const [panelOpen, setPanelOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+
+  const handleTogglePanel = () => {
+    setPanelOpen((prev) => !prev);
+  };
+
+  const handleClosePanel = () => {
+    setPanelOpen(false);
+  };
 
   return (
     <Box
@@ -37,27 +53,58 @@ export function AppShell({ children, onNewChat }: AppShellProps) {
           flexDirection: "column",
         }}
       >
-        <TopBar onNewChat={onNewChat} />
+        <TopBar
+          onNewChat={onNewChat}
+          onOpenSettings={() => setSettingsOpen(true)}
+          onTogglePanel={handleTogglePanel}
+          showPanelToggle={!isDesktop}
+        />
 
         <Box sx={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
           {children}
         </Box>
       </Box>
 
-      <Box
-        component="aside"
-        sx={{
-          width: panelWidth,
-          flexShrink: 0,
-          borderLeft: 1,
-          borderColor: "divider",
-          bgcolor: "background.default",
-          overflowY: "auto",
-          display: { xs: "none", sm: "block" },
-        }}
-      >
-        <DocumentsPanel />
-      </Box>
+      {
+        isDesktop &&
+        <Box
+          component="aside"
+          sx={{
+            width: PANEL_WIDTH,
+            flexShrink: 0,
+            borderLeft: 1,
+            borderColor: "divider",
+            bgcolor: "background.default",
+            overflowY: "auto",
+          }}
+        >
+          <DocumentsPanel />
+        </Box>
+      }
+
+      {
+        !isDesktop &&
+        <Drawer
+          anchor="right"
+          open={panelOpen}
+          onClose={handleClosePanel}
+          slotProps={{
+            paper: {
+              sx: {
+                width: isMobile ? "100vw" : PANEL_WIDTH,
+                bgcolor: "background.default",
+              },
+            },
+          }}
+        >
+          <DocumentsPanel onClose={handleClosePanel} />
+        </Drawer>
+      }
+
+      <SettingsModal
+        open={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+      />
     </Box>
   );
 }
