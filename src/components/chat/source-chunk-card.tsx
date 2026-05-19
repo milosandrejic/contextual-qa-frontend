@@ -1,7 +1,5 @@
 import { Box, Typography } from "@mui/material";
 
-import { formatDistance } from "@/utils/format-distance";
-
 import type { Source } from "@/types/message";
 
 interface SourceChunkCardProps {
@@ -41,7 +39,7 @@ export function SourceChunkCard({ source, highlighted }: SourceChunkCardProps) {
         variant="caption"
         sx={{ color: "text.secondary" }}
       >
-        {pageLabel} • Distance: {formatDistance(source.distance)}
+        {pageLabel} • Relevance: {source.relevance}%
       </Typography>
 
       <Typography
